@@ -1,0 +1,14 @@
+[
+  {
+    "label": "static-site-beta",
+    "stage": "beta",
+    "domain": "beta.enpython.com",
+    "cert_key": "f967e3a6-b01d-4d7d-8535-93423a355a15"
+  },
+  {
+    "label": "static-site-prod",
+    "stage": "prod",
+    "domain": "enpython.com",
+    "cert_key": "2294241c-6d95-48de-b93c-ab602cd1ef31"
+  }
+]

@@ -4,7 +4,6 @@ from aws_cdk import (
     aws_cloudfront as cloudfront,
     aws_certificatemanager as certificate_manager,
 )
-from aws_cdk.core import CfnOutput
 
 from config import StackConfig
 

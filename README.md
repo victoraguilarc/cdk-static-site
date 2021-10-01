@@ -1,58 +1,56 @@
+# CDK Static Site
 
-# Welcome to your CDK Python project!
 
-This is a blank project for Python development with CDK.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the `.venv`
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
-
-To manually create a virtualenv on MacOS and Linux:
+### Getting Started
 
 ```
-$ python3 -m venv .venv
+To use this you need domain with ssl certificates configured in 
+AWS Route53
 ```
 
-After the init process completes and the virtualenv is created, you can use the following
-step to activate your virtualenv.
-
+ 1. Create stacks config file, called `cdk.stacks.json` in the root of the project, with content like the following:
+```json
+[
+  {
+    "label": "static-site-beta",
+    "stage": "beta",
+    "domain": "beta.enpython.com",
+    "cert_key": "<aws certificate identifier>"
+  },
+  {
+    "label": "static-site-prod",
+    "stage": "prod",
+    "domain": "enpython.com",
+    "cert_key": "<aws certificate identifier>"
+  }
+]
 ```
-$ source .venv/bin/activate
+ 2. Create environment vars file, called `.env` with the following content:
+Replace the values with yours
+```
+AWS_DEFAULT_REGION=us-east-1
+AWS_ACCOUNT_ID=XXXXXX
+AWS_ACCESS_KEY_ID=XXXXXXX
+AWS_SECRET_ACCESS_KEY=XXXXXXXXX
+```
+3. Install python virtual environment and cdk
+```
+$ pipenv --three
+$ pipenv install -d
+$ pipenv shell
+
+$ npm install -g aws-cdk
 ```
 
-If you are a Windows platform, you would activate the virtualenv like this:
+## Commands
 
-```
-% .venv\Scripts\activate.bat
-```
-
-Once the virtualenv is activated, you can install the required dependencies.
-
-```
-$ pip install -r requirements.txt
+```bash
+$ make destroy STACK=static-site-beta
+$ make synth STACK=static-site-beta
+$ make diff STACK=static-site-beta
+$ make deploy STACK=static-site-beta
 ```
 
-At this point you can now synthesize the CloudFormation template for this code.
-
-```
-$ cdk synth
-```
-
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
-
-## Useful commands
-
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
-
-Enjoy!
+### TODO
+ - [ ] Test Deployment for SSR React Sites
+ - [ ] Automate Route53 registration of CNAME records

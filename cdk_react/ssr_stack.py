@@ -15,10 +15,6 @@ from config import StackConfig
 
 
 class SSRSiteStack(core.Stack):
-    """
-    Docs for HTTPS: https://dev.to/miensol/https-on-cloudfront-using-certificate-manager-and-aws-cdk-3m50
-    """
-    domain = None
 
     def __init__(
         self,
